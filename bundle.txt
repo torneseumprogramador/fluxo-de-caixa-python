@@ -3,3 +3,4 @@ Flask-Migrate
 Flask-SQLAlchemy
 SQLAlchemy==1.3.24
 pymysql
+flask-cors
