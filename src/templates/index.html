@@ -1,9 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Fluxo de caixa em python</title>
+    <title>Fluxo de caixa em Python</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="/static/css/style.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Fluxo de caixa em python</h1>
+    <div class="container">
+        <h1 class="mt-4">Fluxo de caixa em Python</h1>
+        <hr>
+
+        <div class="row mt-4 dvCaixas">
+            <div class="col-md-4">
+                <h4>Valor total</h4>
+                <p>R$ {{ "{:,.2f}".format(valor_total) }}</p>
+            </div>
+            <div class="col-md-4">
+                <h4>Receitas</h4>
+                <p>R$ {{ "{:,.2f}".format(receitas) }}</p>
+            </div>
+            <div class="col-md-4">
+                <h4>Despesas</h4>
+                <p>R$ {{ "{:,.2f}".format(despesas) }}</p>
+            </div>
+        </div>
+
+        <div class="row mt-4 dvBusca">
+            <div class="col-md-6">
+                <form action="/" method="GET" class="d-flex">
+                    <input type="text" name="tipo" placeholder="Digite algo ..." value="{{termo_busca}}" class="form-control mr-2">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </form>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+                <a href="/adicionar" class="btn btn-success">Adicionar</a>
+            </div>
+        </div>
+
+        
+        <div class="row mt-4 dvTabela">
+            <div class="col-md-12">
+                <table>
+                    <thead> <!-- Estilo cinza para o cabeçalho da tabela -->
+                        <tr>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Status</th>
+                            <th scope="col"></th> <!-- Coluna vazia para o botão de excluir -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for caixa in extrato %}
+                            <tr>
+                                <td>{{ caixa.tipo }}</td>
+                                <td>R$ {{ "{:,.2f}".format(caixa.valor) }}</td>
+                                <td style="background-color: {{ "#8aabe0" if caixa.status == 1 else "red" }};" >{{ "Receita" if caixa.status == 1 else "Despesa" }}</td>
+                                <td>
+                                    <a href="/excluir/{{ caixa.id }}" onclick="return confirm('Confirma?')" class="btn btn-danger btn-sm">Excluir</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

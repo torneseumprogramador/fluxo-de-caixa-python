@@ -1,4 +1,6 @@
 #!/bin/bash
 
 cd src
-python3 app.py
+export FLASK_APP=app.py
+export FLASK_ENV=development
+flask run
